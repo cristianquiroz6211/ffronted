@@ -50,7 +50,7 @@ const CityForm = () => {
     try {
       setLoading(true);
       const token = await getAccessTokenSilently();
-      await axios.post('http://localhost:8080/general/api/v1/crearciudad', formData, {
+      await axios.post('http://localhost:8080/general/api/v1/cities/crearciudad', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
