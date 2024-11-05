@@ -50,7 +50,8 @@ const CityForm = () => {
     try {
       setLoading(true);
       const token = await getAccessTokenSilently();
-      await axios.post('http://localhost:8080/general/api/v1/crearciudad', formData, {
+      
+      const response = await axios.post('http://localhost:8080/general/api/v1/cities/crearciudad', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -59,7 +60,12 @@ const CityForm = () => {
       toast.success('City created successfully!');
       setFormData({ stateId: '', cityName: '' });
     } catch (error) {
-      toast.error('Error creating city');
+      console.error('Error response:', error.response?.data);
+
+      const errorMessages = error.response?.data?.mensajes || ['Error creating city'];
+      const errorMessage = errorMessages.join(', ');
+
+      toast.error(errorMessage);
       console.error('Error:', error);
     } finally {
       setLoading(false);
