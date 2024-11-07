@@ -44,7 +44,6 @@ const CityForm = () => {
       setStates(response.data);
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
-      toast.error('Error fetching states');
     }
   };
 
@@ -82,12 +81,11 @@ const CityForm = () => {
           'Content-Type': 'application/json'
         }
       });
-      toast.success('City created successfully!');
       setFormData({ stateId: '', cityName: '' });
     } catch (error) {
       console.error('Error response:', error.response?.data);
 
-      const errorMessages = error.response?.data?.mensajes || ['Error creating city'];
+      const errorMessages = error.response?.data?.mensajes || ['Error creando la ciudad'];
       const errorMessage = errorMessages.join(', ');
 
       toast.error(errorMessage);
