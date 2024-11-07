@@ -11,10 +11,18 @@ const CityForm = () => {
     cityName: ''
   });
   const [loading, setLoading] = useState(false);
+  const [connectionMessage, setConnectionMessage] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
       fetchStates();
+      // Verificar la conexión al backend después de 5 segundos
+      const timer = setTimeout(() => {
+        checkBackendConnection();
+      }, 5000);
+
+      // Limpiar el temporizador al desmontar el componente
+      return () => clearTimeout(timer);
     }
   }, [isAuthenticated]);
 
@@ -37,6 +45,23 @@ const CityForm = () => {
     } catch (error) {
       console.error("Error al realizar la solicitud:", error);
       toast.error('Error fetching states');
+    }
+  };
+
+  const checkBackendConnection = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+      await axios.get('http://localhost:8080/general/api/v1/states', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      setConnectionMessage('Conexión exitosa al backend.');
+      toast.success('Conexión exitosa al backend.');
+    } catch (error) {
+      setConnectionMessage('Error al conectar con el backend. Por favor, revisa la conexión.');
+      toast.error('Error al conectar con el backend. Por favor, revisa la conexión.');
     }
   };
 
