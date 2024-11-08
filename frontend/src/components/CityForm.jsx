@@ -32,8 +32,8 @@ const CityForm = () => {
     console.log("Token generado:", token);
 
     try {
-      console.log("Realizando solicitud GET a http://localhost:8080/general/api/v1/states...");
-      const response = await axios.get('http://localhost:8080/general/api/v1/states', {
+      console.log("Realizando solicitud GET a https://localhost:8081/general/api/v1/states...");
+      const response = await axios.get('https://localhost:8081/general/api/v1/states', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const CityForm = () => {
   const checkBackendConnection = async () => {
     try {
       const token = await getAccessTokenSilently();
-      await axios.get('http://localhost:8080/general/api/v1/states', {
+      await axios.get('https://localhost:8080/general/api/v1/states', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ const CityForm = () => {
       setLoading(true);
       const token = await getAccessTokenSilently();
       
-      const response = await axios.post('http://localhost:8080/general/api/v1/cities/crearciudad', formData, {
+      const response = await axios.post('https://localhost:8080/general/api/v1/cities/crearciudad', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
