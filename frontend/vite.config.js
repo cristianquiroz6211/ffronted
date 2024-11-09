@@ -13,7 +13,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/general/api/v1': {
-        target: 'http://localhost:8080', // Asegúrate de que esta URL sea correcta
+        target: 'https://localhost:8080', // Asegúrate de que esta URL sea correcta
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/general\/api\/v1/, '') // Esto reescribe la URL
       }
